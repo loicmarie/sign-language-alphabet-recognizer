@@ -1,7 +1,7 @@
 """
 The program applies Transfer Learning to this existing model and re-trains it to classify a new set of images.
 
-This example shows how to take a Inception v3 architecture model trained on ImageNet images, 
+This example shows how to take a Inception v3 architecture model trained on ImageNet images,
 and train a new top layer that can recognize other classes of images.
 
 You can replace the image_dir argument with any folder containing subfolders of
@@ -538,7 +538,7 @@ def should_distort_images(flip_left_right, random_crop, random_scale,
 def add_input_distortions(flip_left_right, random_crop, random_scale,
                           random_brightness):
     """
-    Brief：
+    Brief:
         Creates the operations to apply the specified distortions.
 
         During training it can help to improve the results if we run the images
@@ -548,7 +548,6 @@ def add_input_distortions(flip_left_right, random_crop, random_scale,
         parameters and construct a network of operations to apply them to an image.
 
       Cropping
-      ~~~~~~~~
 
       Cropping is done by placing a bounding box at a random position in the full
       image. The cropping parameter controls the size of that box relative to the
@@ -571,7 +570,6 @@ def add_input_distortions(flip_left_right, random_crop, random_scale,
         +---------------------+
 
       Scaling
-      ~~~~~~~
 
       Scaling is a lot like cropping, except that the bounding box is always
       centered and its size varies randomly within the given range. For example if
