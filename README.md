@@ -33,3 +33,11 @@ To test classification, use the following command:
 ```
 python classify.py path/to/image.jpg
 ```
+
+## Using webcam (demo)
+
+To use webcam, use the following command:
+```
+python classify_webcam.py
+```
+Your hand must be inside the rectangle. Keep position to write word, see demo for deletions.
