@@ -12,6 +12,14 @@ You can [find the demo here](https://youtu.be/kBw-xGEIYhY)
 
 [![Demo](http://img.youtube.com/vi/kBw-xGEIYhY/0.jpg)](http://www.youtube.com/watch?v=kBw-xGEIYhY)
 
+## Requirements
+
+This project uses python 3.5 and the following packages:
+- opencv
+- tensorflow
+- matplotlib
+- numpy
+
 ## Training
 
 To train the model, use the following command (see framework github link for more command options):
