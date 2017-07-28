@@ -24,8 +24,8 @@ See requirements.txt and Dockerfile for versions and required APT packages
 
 ### Using Docker
 ```
-docker build -t hands-tracker .
-docker run -it hands-tracker bash
+docker build -t hands-classifier .
+docker run -it hands-classifier bash
 ```
 ### Install using PIP
 ```
