@@ -54,6 +54,7 @@ with tf.Session() as sess:
     sequence = ''
     while True:
         ret, img = cap.read()
+        img = cv2.flip(img, 1)
         if ret:
             x1, y1, x2, y2 = 100, 100, 300, 300
             img_cropped = img[y1:y2, x1:x2]
