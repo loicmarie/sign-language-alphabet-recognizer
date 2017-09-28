@@ -31,10 +31,10 @@ def predict(image_data):
 
 # Loads label file, strips off carriage return
 label_lines = [line.rstrip() for line
-                   in tf.gfile.GFile("logs/trained_labels.txt")]
+                   in tf.gfile.GFile("logs/output_labels.txt")]
 
 # Unpersists graph from file
-with tf.gfile.FastGFile("logs/trained_graph.pb", 'rb') as f:
+with tf.gfile.FastGFile("logs/output_graph.pb", 'rb') as f:
     graph_def = tf.GraphDef()
     graph_def.ParseFromString(f.read())
     _ = tf.import_graph_def(graph_def, name='')
@@ -54,6 +54,7 @@ with tf.Session() as sess:
     sequence = ''
     while True:
         ret, img = cap.read()
+        img = cv2.flip(img, 1)
         if ret:
             x1, y1, x2, y2 = 100, 100, 300, 300
             img_cropped = img[y1:y2, x1:x2]
