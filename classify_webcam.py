@@ -52,16 +52,20 @@ with tf.Session() as sess:
     mem = ''
     consecutive = 0
     sequence = ''
+    
     while True:
         ret, img = cap.read()
         img = cv2.flip(img, 1)
+        
         if ret:
             x1, y1, x2, y2 = 100, 100, 300, 300
             img_cropped = img[y1:y2, x1:x2]
 
             c += 1
             image_data = cv2.imencode('.jpg', img_cropped)[1].tostring()
-            a = cv2.waitKey(33)
+            
+            a = cv2.waitKey(1) # waits to see if `esc` is pressed
+            
             if i == 4:
                 res_tmp, score = predict(image_data)
                 res = res_tmp
@@ -87,9 +91,10 @@ with tf.Session() as sess:
             img_sequence = np.zeros((200,1200,3), np.uint8)
             cv2.putText(img_sequence, '%s' % (sequence.upper()), (30,30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 2)
             cv2.imshow('sequence', img_sequence)
-        else:
-            break
+            
+            if a == 27: # when `esc` is pressed
+                break
 
-# Following line should appear but is not working with opencv-python package
-# cv2.destroyAllWindows() 
+# Following line should... <-- This should work fine now
+cv2.destroyAllWindows() 
 cv2.VideoCapture(0).release()
