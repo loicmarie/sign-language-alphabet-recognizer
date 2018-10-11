@@ -19,6 +19,8 @@ This project uses python 3.5 and the PIP following packages:
 * tensorflow
 * matplotlib
 * numpy
+* gttf
+* pygame
 
 See requirements.txt and Dockerfile for versions and required APT packages
 
