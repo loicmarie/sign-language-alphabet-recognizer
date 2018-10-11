@@ -1,11 +1,15 @@
+from gtts import gTTS
 import sys
 import os
-
 import matplotlib
 import numpy as np
 import matplotlib.pyplot as plt
 import copy
 import cv2
+from pygame import mixer 
+
+
+
 
 # Disable tensorflow compilation warnings
 os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
@@ -31,10 +35,10 @@ def predict(image_data):
 
 # Loads label file, strips off carriage return
 label_lines = [line.rstrip() for line
-                   in tf.gfile.GFile("logs/output_labels.txt")]
+                   in tf.gfile.GFile("logs/trained_labels.txt")]
 
 # Unpersists graph from file
-with tf.gfile.FastGFile("logs/output_graph.pb", 'rb') as f:
+with tf.gfile.FastGFile("logs/trained_graph.pb", 'rb') as f:
     graph_def = tf.GraphDef()
     graph_def.ParseFromString(f.read())
     _ = tf.import_graph_def(graph_def, name='')
@@ -52,6 +56,7 @@ with tf.Session() as sess:
     mem = ''
     consecutive = 0
     sequence = ''
+    final =''
     
     while True:
         ret, img = cap.read()
@@ -76,7 +81,14 @@ with tf.Session() as sess:
                     consecutive = 0
                 if consecutive == 2 and res not in ['nothing']:
                     if res == 'space':
-                        sequence += ' '
+                        tts = gTTS(text=sequence, lang='en')
+                        tts.save("test.mp3")
+                        
+                        mixer.init()
+                        mixer.music.load('test.mp3')
+                        mixer.music.play()
+                        final = final + sequence
+                        sequence=' '
                     elif res == 'del':
                         sequence = sequence[:-1]
                     else:
@@ -89,7 +101,7 @@ with tf.Session() as sess:
             cv2.rectangle(img, (x1, y1), (x2, y2), (255,0,0), 2)
             cv2.imshow("img", img)
             img_sequence = np.zeros((200,1200,3), np.uint8)
-            cv2.putText(img_sequence, '%s' % (sequence.upper()), (30,30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 2)
+            cv2.putText(img_sequence, '%s' % (final.upper()), (30,30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 2)
             cv2.imshow('sequence', img_sequence)
             
             if a == 27: # when `esc` is pressed
